@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="None">
+  
+  <link rel="shortcut icon" href="./img/favicon.ico">
+  <title>Welcome to envman - db</title>
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  <link rel="stylesheet" href="./css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="./css/theme_extra.css" type="text/css" />
+  <link rel="stylesheet" href="./css/highlight.css">
+  
+  <script>
+    // Current page data
+    var mkdocs_page_name = "Welcome to envman";
+    var mkdocs_page_input_path = "index.md";
+    var mkdocs_page_url = "/index.html";
+  </script>
+  
+  <script src="./js/jquery-2.1.1.min.js"></script>
+  <script src="./js/modernizr-2.8.3.min.js"></script>
+  <script type="text/javascript" src="./js/highlight.pack.js"></script> 
+  
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side stickynav">
+      <div class="wy-side-nav-search">
+        <a href="index.html" class="icon icon-home"> db</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="./search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+	<ul class="current">
+	  
+          
+            <li class="toctree-l1 current">
+		
+    <a class="current" href="index.html">Welcome to envman</a>
+    <ul class="subnav">
+            
+    <li class="toctree-l2"><a href="#envman">envman</a></li>
+    
+        <ul>
+        
+            <li><a class="toctree-l3" href="#usage-primer">Usage Primer</a></li>
+        
+            <li><a class="toctree-l3" href="#python-api">Python Api</a></li>
+        
+            <li><a class="toctree-l3" href="#rest-api">REST Api</a></li>
+        
+            <li><a class="toctree-l3" href="#rest-api-programmatic-examples-with-requests">REST API Programmatic Examples  with requests</a></li>
+        
+        </ul>
+    
+
+    </ul>
+	    </li>
+          
+        </ul>
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="index.html">db</a>
+      </nav>
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="index.html">Docs</a> &raquo;</li>
+    
+      
+    
+    <li>Welcome to envman</li>
+    <li class="wy-breadcrumbs-aside">
+      
+    </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            <div class="section">
+              
+                <p><img alt="doc" src="https://img.shields.io/badge/coverage-9-red.svg" />
+<img alt="doc" src="https://img.shields.io/badge/test-pass-green.svg" />
+<img alt="doc" src="https://img.shields.io/badge/doc-available-blue.svg" />
+<img alt="doc" src="https://img.shields.io/badge/language-python-red.svg" /></p>
+<h1 id="envman">envman</h1>
+<p><code>envman</code> is a small package exposing Python <strong>and</strong> REST APIs to manage 
+commondata environments and platform parameters.</p>
+<h2 id="usage-primer">Usage Primer</h2>
+<div class="highlight"><pre><span></span><span class="c1"># Parameter api</span>
+
+<span class="kn">from</span> <span class="nn">envman</span>  <span class="kn">import</span> <span class="n">Parameter</span> 
+
+<span class="c1"># Puts a parameter related to an environment</span>
+<span class="n">Parameter</span><span class="o">.</span><span class="n">put_parameter</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="s2">&quot;dev&quot;</span><span class="p">,</span><span class="n">name</span><span class="o">=</span><span class="s2">&quot;VpcId&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;vpc-12345&quot;</span><span class="p">)</span>
+
+
+<span class="c1"># Puts a parameter related to a platform</span>
+<span class="n">Parameter</span><span class="o">.</span><span class="n">put_parameter</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="s2">&quot;dev&quot;</span><span class="p">,</span><span class="n">uri</span><span class="o">=</span><span class="s2">&quot;uri:123456:platform:dev&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;PubSubnetId&quot;</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="s2">&quot;subnet-12345&quot;</span><span class="p">)</span>
+
+<span class="c1"># Gets a parameter</span>
+<span class="n">Parameter</span><span class="o">.</span><span class="n">get_parameter</span><span class="p">(</span><span class="s2">&quot;dev&quot;</span><span class="p">,</span><span class="s2">&quot;uri:123456:platform:dev&quot;</span><span class="p">,</span> <span class="s2">&quot;PubSubnetId&quot;</span><span class="p">)</span>
+<span class="s2">&quot;subnet-12345&quot;</span>
+
+<span class="c1"># Gets all parameters as dict under an env</span>
+<span class="n">Parameter</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="s2">&quot;dev&quot;</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="s2">&quot;Environment&quot;</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;dev&quot;</span> <span class="p">:</span> <span class="p">{</span>
+           <span class="s2">&quot;globals&quot;</span> <span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;VpcId&quot;</span> <span class="p">:</span> <span class="s2">&quot;vpc-12345&quot;</span>
+            <span class="p">},</span>
+            <span class="s2">&quot;platforms&quot;</span> <span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;uri:platform:123456:dev&quot;</span> <span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;PubSubnetId&quot;</span> <span class="p">:</span> <span class="s2">&quot;subnet-12345&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+<span class="c1"># Gets all parameters as dict under a platform uri</span>
+<span class="n">Parameter</span><span class="o">.</span><span class="n">get_parameters</span><span class="p">(</span><span class="n">env</span><span class="o">=</span><span class="s2">&quot;dev&quot;</span><span class="p">,</span> <span class="n">uri</span><span class="o">=</span><span class="s2">&quot;uri:platform:123456:dev&quot;</span> <span class="p">)</span>
+<span class="p">{</span>
+    <span class="s2">&quot;Environment&quot;</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;dev&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;platforms&quot;</span> <span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;uri:platform:123456:dev&quot;</span> <span class="p">:</span> <span class="p">{</span>
+                    <span class="s2">&quot;PubSubnetId&quot;</span> <span class="p">:</span> <span class="s2">&quot;subnet-12345&quot;</span>
+                <span class="p">}</span>
+            <span class="p">}</span>
+
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+
+<h2 id="python-api">Python Api</h2>
+<p><strong>envman.Parameter.put_parameter</strong></p>
+<ul>
+<li><strong>env</strong>(str) : environment key</li>
+<li><strong>uri</strong>(str, optional) : resource uri</li>
+<li><strong>name</strong>(str,optional) : name of the parameter</li>
+<li><strong>value</strong>(str, optional) : value of the parameter</li>
+<li><strong>description</strong>(string, optional) : description of the parameter</li>
+</ul>
+<blockquote>
+<p>Creates a parameter in SSM under env  </p>
+</blockquote>
+<p><strong>envman.Parameter.get_parameter</strong></p>
+<ul>
+<li><strong>env</strong>(str) : environment key</li>
+<li><strong>uri</strong>(str, optional) : resource uri</li>
+<li><strong>name</strong>(str,optional) : name of the parameter</li>
+</ul>
+<blockquote>
+<p>Reads  the parameter value in the given env.
+  One or both of uri and name must be provided</p>
+</blockquote>
+<p><strong>envman.Parameter.get_parameters</strong></p>
+<ul>
+<li><strong>env</strong>(str) : environment key</li>
+<li><strong>uri</strong>(str, optional) : resource uri</li>
+</ul>
+<blockquote>
+<p>Returns  a dict with all parameters under this env/uri
+The dict has following format : 
+<div class="highlight"><pre><span></span><span class="p">{</span>
+<span class="s2">&quot;Environment&quot;</span> <span class="p">:</span> <span class="p">{</span>
+    <span class="s2">&quot;&lt;env&gt;&quot;</span> <span class="p">:</span> <span class="p">{</span>
+        <span class="s2">&quot;globals&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;value&quot;</span>
+        <span class="p">},</span>
+        <span class="s2">&quot;platforms&quot;</span> <span class="p">:</span> <span class="p">{</span>
+            <span class="s2">&quot;&lt;uri&gt;&quot;</span> <span class="p">:</span> <span class="p">{</span>
+                <span class="s2">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;value&quot;</span>
+            <span class="p">}</span>
+        <span class="p">}</span>
+
+    <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div></p>
+</blockquote>
+<h2 id="rest-api">REST Api</h2>
+<p><strong>POST :/parameter</strong>
+- body.<strong>env</strong>(str)
+- body.<strong>uri</strong>(str)
+- body.<strong>name</strong>(str)
+- body.<strong>value</strong>(str)
+- body.<strong>description</strong>(string, <em>optional</em></p>
+<blockquote>
+<p>Creates a parameter in SSM with uri/resource_type/accountid/.../name 
+    with the provided value  and description</p>
+</blockquote>
+<p><strong>GET: /parameter</strong></p>
+<ul>
+<li>querystring.<strong>env</strong>(str)</li>
+<li>querystring.<strong>uri</strong>(str)</li>
+<li>querystring.<strong>name</strong>(str)</li>
+</ul>
+<blockquote>
+<p>Reads  the parameter value</p>
+</blockquote>
+<p><strong>GET :/parameters</strong></p>
+<ul>
+<li>querystring.<strong>env</strong>(str)</li>
+<li>querystring.<strong>uri</strong>(str)</li>
+</ul>
+<blockquote>
+<p>Returns  a dict with all parameters under this env/uri</p>
+</blockquote>
+<h2 id="rest-api-programmatic-examples-with-requests">REST API Programmatic Examples  with <code>requests</code></h2>
+<div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">endpoint</span> <span class="o">=</span> <span class="s2">&quot;API GATEWAY endpoing&quot;</span>
+<span class="c1"># putting a parameter</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">post</span><span class="p">(</span>
+    <span class="n">endpoint</span><span class="o">+</span><span class="s2">&quot;/parameter&quot;</span><span class="p">,</span> 
+    <span class="n">json</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;env&quot;</span> <span class="p">:</span> <span class="s2">&quot;tests&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;uri&quot;</span> <span class="p">:</span><span class="s2">&quot;uri:platform:123456:dev&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span> <span class="p">:</span> <span class="s2">&quot;platformparam&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;value&quot;</span><span class="p">:</span> <span class="s2">&quot;platformvalue&quot;</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+
+<span class="c1"># getting a parameter</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="n">endpoint</span> <span class="o">+</span> <span class="s2">&quot;/parameter&quot;</span><span class="p">,</span>
+    <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;env&quot;</span> <span class="p">:</span> <span class="s2">&quot;tests&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;platformparam&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;uri&quot;</span><span class="p">:</span> <span class="s2">&quot;uri:platform:123456:dev&quot;</span>
+        <span class="p">}</span>
+<span class="p">)</span>           
+
+
+<span class="c1"># getting all parameters in an environment </span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+    <span class="n">endpoint</span> <span class="o">+</span> <span class="s2">&quot;/parameters&quot;</span><span class="p">,</span>
+    <span class="n">params</span><span class="o">=</span><span class="p">{</span>
+        <span class="s2">&quot;env&quot;</span> <span class="p">:</span> <span class="s2">&quot;tests&quot;</span>
+    <span class="p">}</span>
+<span class="p">)</span>
+</pre></div>
+              
+            </div>
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <!-- Copyright etc -->
+    
+  </div>
+
+  Built with <a href="http://www.mkdocs.org">MkDocs</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>.
+</footer>
+      
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+
+  <div class="rst-versions" role="note" style="cursor: pointer">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      
+      
+      
+    </span>
+</div>
+    <script>var base_url = '.';</script>
+    <script src="./js/theme.js"></script>
+      <script src="./search/require.js"></script>
+      <script src="./search/search.js"></script>
+
+</body>
+</html>
+
+<!--
+MkDocs version : 0.17.5
+Build Date UTC : 2018-07-25 14:29:32
+-->

@@ -1,7 +1,12 @@
+![doc](https://img.shields.io/badge/coverage-9-red.svg)
+![doc](https://img.shields.io/badge/test-pass-green.svg)
+![doc](https://img.shields.io/badge/doc-available-blue.svg)
+![doc](https://img.shields.io/badge/language-python-red.svg)
+
 
 # envman 
 
-`envman` is a small package exposing Python and REST APIs to manage 
+`envman` is a small package exposing Python **and** REST APIs to manage 
 commondata environments and platform parameters.
 
 

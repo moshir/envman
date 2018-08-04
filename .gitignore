@@ -1,0 +1,15 @@
+# Virtualenv
+[Bb]in
+[Ii]nclude
+[Ll]ib
+[Ll]ib64
+[Ll]ocal
+[Ss]hare
+[Ss]cripts
+pyvenv.cfg
+.venv
+.idea*
+*pyc
+.builds*
+pip-selfcheck.json
+config.json

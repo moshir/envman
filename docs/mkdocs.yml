@@ -1,0 +1,12 @@
+site_name: db
+pages:
+  - Welcome to envman : 'index.md'
+
+
+markdown_extensions:
+   - pymdownx.superfences
+   - markdown.extensions.attr_list
+
+theme: readthedocs
+
+use_directory_urls : false
