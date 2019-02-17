@@ -1,11 +1,15 @@
-
 import boto3
 from urilib import Uri
 import pprint
 import json
+from retrying import retry
+from botocore.exceptions import ClientError
+import logging
+
+log = logging.getLogger("envman:Parameter")
 
 class Parameter:
-
+    cache={}
     @classmethod
     def ssm(cls):
         client =  boto3.client("ssm", region_name="eu-west-1")
@@ -56,15 +60,25 @@ class Parameter:
 
 
     @classmethod
+    @retry(stop_max_attempt_number=5, wait_fixed=2000)
     def get_parameter(cls, env, uri="", name=""):
         pname = cls.get_parameter_name(env,uri, name)
+        if pname in cls.cache.keys():
+            return Parameter.cache[pname]
         ssm = cls.ssm()
         try :
-            return ssm.get_parameter(
+            param_value = ssm.get_parameter(
                 Name = pname
             )["Parameter"]["Value"]
-        except Exception :
-            return None
+            cls.cache[pname] = param_value
+            return param_value
+        except ClientError as e:
+            if e.response['Error']['Code'] == 'ParameterNotFound':
+                log.warning("Parameter `{}` not found for env `{}`, defaulting to None".format(name, env))
+                return None
+            else:
+                log.error("Error trying to retrieve parameter from SSM")
+                raise e
 
     @classmethod
     def clean_environment(cls, env, uri=""):
@@ -171,32 +185,5 @@ class Parameter:
                 for parameter in config.keys() :
                     Parameter.put_parameter(env=env, name=parameter, uri=uri, value=config[parameter])
 
-
-
-
-if __name__ == "__main__":
-    import argparse
-
-    parser = argparse.ArgumentParser(description="utility to manage commondata parameters")
-    parser.add_argument("action", help="Action to be performed", choices=['show', 'load'])
-    parser.add_argument("-e", "--env", help="env to be dumped")
-    parser.add_argument("-f", "--filename", help="filename to be loaded")
-    args = parser.parse_args()
-    if args.action is None:
-        print "Missing command show or load"
-        exit()
-
-    env = args.env
-    if env is None :
-        env = "dev"
-
-    if args.action == "show":
-        Parameter.show(env)
-
-    if args.action == "load":
-        filename = args.filename
-        if filename is None :
-            filename = "config.json"
-        Parameter.load(filename, env)
 
 
