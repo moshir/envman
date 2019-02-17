@@ -8,6 +8,7 @@ import logging
 
 log = logging.getLogger("envman:Parameter")
 
+
 class Parameter:
     cache={}
     @classmethod
